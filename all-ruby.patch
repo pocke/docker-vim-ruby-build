@@ -1,0 +1,18 @@
+diff --git a/Rakefile b/Rakefile
+index 0bb2509..55b75dc 100755
+--- a/Rakefile
++++ b/Rakefile
+@@ -616,12 +616,12 @@ class RubySource
+     prefix = File.realpath(dirname)
+     print "build #{version}\n"
+ 
+-    command = ["./configure", "--prefix=#{prefix}", :chdir => "#{dirname}/#{srcdir}"]
++    command = ["./configure", "--enable-shared", "--prefix=#{prefix}", :chdir => "#{dirname}/#{srcdir}"]
+     if !run_command("configure", command, prefix)
+       raise "fail configure #{version}"
+     end
+ 
+     command = ["make", :chdir => "#{dirname}/#{srcdir}"]
+     if !run_command("make", command, prefix)
+       raise "fail make #{version}"
+     end
