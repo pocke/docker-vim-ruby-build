@@ -34,3 +34,5 @@ RUN rake 2.2.10
 RUN rake 2.3.7
 RUN rake 2.4.4
 RUN rake 2.5.1
+
+ADD build-vim.sh /bin/
