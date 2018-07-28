@@ -34,4 +34,4 @@ RUN rake 2.3.7
 RUN rake 2.4.4
 RUN rake 2.5.1
 
-ADD build-vim.sh /bin/
+ADD build-vim.sh  build-vim-all.sh /bin/
