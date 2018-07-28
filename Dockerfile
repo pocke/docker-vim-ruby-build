@@ -25,7 +25,7 @@ ADD all-ruby.patch /tmp/
 RUN git clone https://github.com/akr/all-ruby /all-ruby
 WORKDIR /all-ruby
 RUN git apply /tmp/all-ruby.patch
-RUN rake 1.8.7
+RUN rake 1.8.7-p374
 RUN rake 1.9.3-p551
 RUN rake 2.0.0-p648
 RUN rake 2.1.10
