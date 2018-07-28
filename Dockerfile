@@ -25,13 +25,15 @@ ADD all-ruby.patch /tmp/
 RUN git clone https://github.com/akr/all-ruby /all-ruby
 WORKDIR /all-ruby
 RUN git apply /tmp/all-ruby.patch
-RUN rake 1.8.7-p374
-RUN rake 1.9.3-p551
-RUN rake 2.0.0-p648
-RUN rake 2.1.10
-RUN rake 2.2.10
-RUN rake 2.3.7
-RUN rake 2.4.4
-RUN rake 2.5.1
+RUN echo 1.8.7-p374 1.9.3-p551 2.0.0-p648 2.1.10 2.2.10 2.3.7 2.4.4 2.5.1 | xargs -n 1 -P $(nproc) rake
+
+ADD initialize-vim.sh /bin/
+
+RUN git clone --depth 1 https://github.com/vim/vim /vim-on-docker-build
+RUN mkdir /vim-for-rubies
+
+RUN echo 1.8.7-p374 1.9.3-p551 2.0.0-p648 2.1.10 2.2.10 2.3.7 2.4.4 2.5.1 | xargs -n 1 -P $(nproc) initialize-vim.sh
+
+RUN rm /bin/initialize-vim.sh
 
 ADD build-vim.sh  build-vim-all.sh /bin/
