@@ -32,7 +32,23 @@ ADD initialize-vim.sh /bin/
 RUN git clone --depth 1 https://github.com/vim/vim /vim-on-docker-build
 RUN mkdir /vim-for-rubies
 
-RUN echo 1.8.7-p374 1.9.3-p551 2.0.0-p648 2.1.10 2.2.10 2.3.7 2.4.4 2.5.1 | xargs -n 1 -P $(nproc) initialize-vim.sh
+RUN echo 1.8.7-p374 yes \
+         1.8.7-p374 dynamic \
+         1.9.3-p551 yes \
+         1.9.3-p551 dynamic \
+         2.0.0-p648 yes\
+         2.0.0-p648 dynamic\
+         2.1.10 yes \
+         2.1.10 dynamic \
+         2.2.10 yes \
+         2.2.10 dynamic \
+         2.3.7 yes \
+         2.3.7 dynamic \
+         2.4.4 yes \
+         2.4.4 dynamic \
+         2.5.1 yes \
+         2.5.1 dynamic \
+         | xargs -n 2 -P 8 initialize-vim.sh
 
 RUN rm /bin/initialize-vim.sh
 

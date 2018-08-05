@@ -3,10 +3,16 @@
 set -xe
 
 RB_VERSION=$1
-DIR=/vim-for-rubies/${RB_VERSION}
-PATCH=/tmp/vim-patch-$RB_VERSION.diff
-TEST_LOG=/tmp/test-log-$RB_VERSION
-export PATH=/all-ruby/$1/bin:$PATH
+RUBYINTERP_OPT=$2
+if [ -z $RUBYINTERP_OPT ]; then
+  SUFFIX=""
+else
+  SUFFIX="-${RUBYINTERP_OPT}"
+fi
+DIR=/vim-for-rubies/${RB_VERSION}${SUFFIX}
+PATCH=/tmp/vim-patch-${RB_VERSION}${SUFFIX}.diff
+TEST_LOG=/tmp/test-log-${RB_VERSION}${SUFFIX}
+export PATH=/all-ruby/${RB_VERSION}/bin:$PATH
 
 # make patch
 cd $DIR
@@ -19,7 +25,9 @@ rev=$(git rev-parse @)
 # apply patch
 git add .
 git reset --hard
-git apply $PATCH
+if [ -s $PATCH ]; then
+  git apply $PATCH
+fi
 rm $PATCH
 
 make -j
