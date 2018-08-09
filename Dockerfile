@@ -26,6 +26,14 @@ RUN git clone https://github.com/akr/all-ruby /all-ruby
 WORKDIR /all-ruby
 RUN git apply /tmp/all-ruby.patch
 RUN echo 1.8.7-p374 1.9.3-p551 2.0.0-p648 2.1.10 2.2.10 2.3.7 2.4.4 2.5.1 | xargs -n 1 -P $(nproc) rake
+RUN ln -s /all-ruby/1.8.7-p374/lib/libruby.so /lib/libruby.so.1.8 && \
+    ln -s /all-ruby/1.9.3-p551/lib/libruby.so /lib/libruby.so.1.9 && \
+    ln -s /all-ruby/2.0.0-p648/lib/libruby.so /lib/libruby.so.2.0 && \
+    ln -s /all-ruby/2.1.10/lib/libruby.so /lib/libruby.so.2.1 && \
+    ln -s /all-ruby/2.2.10/lib/libruby.so /lib/libruby.so.2.2 && \
+    ln -s /all-ruby/2.3.7/lib/libruby.so /lib/libruby.so.2.3 && \
+    ln -s /all-ruby/2.4.4/lib/libruby.so /lib/libruby.so.2.4 && \
+    ln -s /all-ruby/2.5.1/lib/libruby.so /lib/libruby.so.2.5
 
 ADD initialize-vim.sh /bin/
 
@@ -48,7 +56,7 @@ RUN echo 1.8.7-p374 yes \
          2.4.4 dynamic \
          2.5.1 yes \
          2.5.1 dynamic \
-         | xargs -n 2 -P 8 initialize-vim.sh
+         | xargs -n 2 -P 4 initialize-vim.sh
 
 RUN rm /bin/initialize-vim.sh
 
