@@ -1,2 +1,2 @@
 build:
-	docker build -t vim-ruby-build:dev .
+	docker build -t pocke/vim-ruby-build:dev .
