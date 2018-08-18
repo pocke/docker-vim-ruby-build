@@ -37,7 +37,9 @@ RUN ln -s /all-ruby/1.8.7-p374/lib/libruby.so /lib/libruby.so.1.8 && \
 
 ADD initialize-vim.sh /bin/
 
-RUN git clone --depth 1 https://github.com/vim/vim /vim-on-docker-build
+# For purging cache
+RUN echo 2018-08-18-14:56 && \
+    git clone --depth 1 https://github.com/vim/vim /vim-on-docker-build
 RUN mkdir /vim-for-rubies
 
 RUN echo 1.8.7-p374 yes \
@@ -56,7 +58,7 @@ RUN echo 1.8.7-p374 yes \
          2.4.4 dynamic \
          2.5.1 yes \
          2.5.1 dynamic \
-         | xargs -n 2 -P 4 initialize-vim.sh
+         | xargs -n 2 -P $(nproc) initialize-vim.sh
 
 RUN rm /bin/initialize-vim.sh
 
